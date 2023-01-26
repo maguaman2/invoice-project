@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
-
 @Service
 class ClientService {
     @Autowired
@@ -33,14 +32,11 @@ class ClientService {
             //diet.description?.takeIf { it.trim().isNotEmpty() }
             client.fullname?.takeIf { it.trim().isNotEmpty() }
                 ?: throw Exception("fullname no debe ser vacio")
-
             return clientRepository.save(client)
         }
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
-
-
     }
 
     fun update(client: Client): Client {
@@ -58,6 +54,8 @@ class ClientService {
         try{
             val response = clientRepository.findById(client.id)
                 ?: throw Exception("ID no existe")
+            val response1 = validate()
+                ?: throw Exception("ID no existe")
             response.apply {
                 fullname=client.fullname
             }
@@ -66,5 +64,8 @@ class ClientService {
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
+    }
+    fun validate(): Boolean? {
+        return null
     }
 }

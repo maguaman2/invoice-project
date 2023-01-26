@@ -35,7 +35,7 @@ class ClientServiceTest {
     @Test
     fun saveClienteWhenIsFullnameIsBlank(){
         Assertions.assertThrows(Exception::class.java) {
-            clientMock.apply { fullname=" "}
+            clientMock.apply { fullname="         "}
             Mockito.`when`(clientRepository.save(Mockito.any(Client::class.java))).thenReturn(clientMock)
             clientService.save(clientMock)
         }
