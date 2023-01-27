@@ -22,8 +22,9 @@ class ProductService {
 
     fun save(product: Product): Product {
         try{
-            product.stock?.takeIf { it > 0 }
-                ?: throw Exception("Stock no valido")
+            product.description?.takeIf { validatePlate(it) }
+                ?: throw Exception("Error placa")
+
             return productRepository.save(product)
         }
         catch (ex:Exception){
@@ -35,6 +36,7 @@ class ProductService {
         try {
             productRepository.findById(product.id)
                 ?: throw Exception("ID no existe")
+
 
             return productRepository.save(product)
         }
@@ -56,5 +58,8 @@ class ProductService {
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
+    }
+    fun validatePlate(plate:String):Boolean{
+        return true
     }
 }
