@@ -1,8 +1,10 @@
 package com.example.invoicemg.service
 
 import com.example.invoicemg.model.Invoice
+import com.example.invoicemg.model.InvoiceView
 import com.example.invoicemg.repository.ClientRepository
 import com.example.invoicemg.repository.InvoiceRepository
+import com.example.invoicemg.repository.InvoiceViewRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -14,10 +16,17 @@ class InvoiceService {
     lateinit var invoiceRepository: InvoiceRepository
 
     @Autowired
+    lateinit var invoiceViewRepository: InvoiceViewRepository
+
+    @Autowired
     lateinit var clientRepository: ClientRepository
 
     fun list(): List<Invoice> {
         return invoiceRepository.findAll()
+    }
+
+    fun listWithClient(): List<InvoiceView> {
+        return invoiceViewRepository.findAll()
     }
     fun listTotalMoreThan(total:Double?): List<Invoice>? {
         return invoiceRepository.findTotalMoreThan(total)

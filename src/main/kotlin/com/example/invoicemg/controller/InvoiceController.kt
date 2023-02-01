@@ -20,6 +20,12 @@ class InvoiceController {
         return ResponseEntity(invoiceService.list(), HttpStatus.OK)
     }
 
+    @GetMapping("/client")
+    fun listWithClient ():ResponseEntity<*>{
+        return ResponseEntity(invoiceService.listWithClient(), HttpStatus.OK)
+    }
+
+
     @GetMapping("/totals/{total}")
     fun listTotals (@PathVariable("total") total: Double ):ResponseEntity<*>{
         return ResponseEntity(invoiceService.listTotalMoreThan(total), HttpStatus.OK)
